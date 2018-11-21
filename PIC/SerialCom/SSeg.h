@@ -1,0 +1,1 @@
+void display(int number, char dec[4]);
