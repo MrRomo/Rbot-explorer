@@ -1,0 +1,6 @@
+main
+	UART1_Init
+	setup
+	UART1_Write
+	UART1_Data_Ready
+	UART1_Read

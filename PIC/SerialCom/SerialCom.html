@@ -1,0 +1,123 @@
+Version:0.9
+StartHTML:0000000105
+EndHTML:0000018399
+StartFragment:0000001499
+EndFragment:0000018383
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>mikroIDE</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="generator" content="SynEdit HTML exporter" />
+<style type="text/css">
+<!--
+body { color: #000000; background-color: #FFFFFF; }
+body { font-family: Courier New; font-size: 14pt; }
+.cpp1-activecomment { color: #0078D7; font-style: italic; text-decoration: underline; }
+.cpp1-assembler { color: #FF0000; }
+.cpp1-binary { color: #800000; }
+.cpp1-character { color: #808000; }
+.cpp1-comment { color: #008000; font-style: italic; }
+.cpp1-float { color: #800000; }
+.cpp1-hexadecimal { color: #008000; }
+.cpp1-identifier { color: #000000; }
+.cpp1-illegalchar { color: #FF0000; }
+.cpp1-imagelink { color: #800080; font-style: italic; text-decoration: underline; }
+.cpp1-number { color: #008000; }
+.cpp1-octal { color: #0000FF; }
+.cpp1-preprocessor { color: #8000FF; font-style: italic; }
+.cpp1-reservedword { color: #000000; font-weight: bold; }
+.cpp1-space { color: #F0F0F0; }
+.cpp1-string { color: #0000FF; }
+.cpp1-symbol { color: #000000; }
+.cpp1-weblink { color: #0078D7; font-style: italic; text-decoration: underline; }
+-->
+</style>
+</head>
+<body>
+<!--StartFragment--><pre><code><span class="cpp1-preprocessor">#define&nbsp;disp&nbsp;PORTB
+#define&nbsp;deco&nbsp;PORTD
+#define&nbsp;sensor&nbsp;PORTA.F5
+
+
+
+</span><span class="cpp1-reservedword">char</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">DHT22[</span><span class="cpp1-number">40</span><span class="cpp1-symbol">]={</span><span class="cpp1-number">0</span><span class="cpp1-symbol">};
+</span><span class="cpp1-reservedword">char</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">count</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-reservedword">int</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">temp=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">0</span><span class="cpp1-symbol">,</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">check=</span><span class="cpp1-number">0</span><span class="cpp1-symbol">,</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">hum</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+
+</span><span class="cpp1-reservedword">char</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">reading</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-reservedword">char</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">i</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-reservedword">void</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">pines</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">();
+</span><span class="cpp1-reservedword">void</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">display(</span><span class="cpp1-reservedword">int</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">number,</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-reservedword">char</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">dec[</span><span class="cpp1-number">4</span><span class="cpp1-symbol">]);
+</span><span class="cpp1-reservedword">void</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">CheckResponse();
+</span><span class="cpp1-reservedword">void</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">main()</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-identifier">pines();
+
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-reservedword">while</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">(</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">TRISA.F5</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">sensor</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">delay_ms(</span><span class="cpp1-number">10</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">sensor</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">delay_ms(</span><span class="cpp1-number">18</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">sensor</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">DELAY_US(</span><span class="cpp1-number">30</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">sensor</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">TRISA.F5</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-reservedword">while</span><span class="cpp1-symbol">(reading)</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">TMR0</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-reservedword">while</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">(sensor)</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(TMR0&gt;</span><span class="cpp1-number">60</span><span class="cpp1-symbol">){
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">reading</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(!reading){
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">DHT22[count]=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">TMR0;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-reservedword">if</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">((count&lt;=</span><span class="cpp1-number">15</span><span class="cpp1-symbol">)&amp;&amp;(count&gt;=</span><span class="cpp1-number">0</span><span class="cpp1-symbol">))</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">hum</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">hum&lt;&lt;</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(DHT22[count]&gt;</span><span class="cpp1-number">16</span><span class="cpp1-symbol">){
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">hum</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">+=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">((count&lt;=</span><span class="cpp1-number">33</span><span class="cpp1-symbol">)&amp;&amp;(count&gt;=</span><span class="cpp1-number">16</span><span class="cpp1-symbol">))</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">temp</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">temp&lt;&lt;</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(DHT22[count]&gt;</span><span class="cpp1-number">16</span><span class="cpp1-symbol">){
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">temp</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">+=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">count++;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-reservedword">while</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">(!sensor)</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">delay_us(</span><span class="cpp1-number">10</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-reservedword">if</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">(count&gt;=</span><span class="cpp1-number">40</span><span class="cpp1-symbol">)</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">count</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">reading</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">hum=hum&lt;&lt;</span><span class="cpp1-number">2</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">reading</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">display(</span><span class="cpp1-number">1290</span><span class="cpp1-symbol">,dec);
+</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;</span><span class="cpp1-identifier">display(temp,dec2);
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-symbol">}
+}
+
+</span><span class="cpp1-reservedword">void</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-identifier">pines</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">()</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-identifier">ANSEL</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-hexadecimal">0X00</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-identifier">ANSELH</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-hexadecimal">0X00</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-identifier">TRISA</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-hexadecimal">0X00</span><span class="cpp1-symbol">;</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-comment">//00
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-identifier">TRISB</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-hexadecimal">0X00</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-identifier">TRISD</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-hexadecimal">0X00</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-identifier">PORTA</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-hexadecimal">0X00</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-identifier">PORTB</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-hexadecimal">0X00</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-identifier">PORTD</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-hexadecimal">0X00</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-identifier">OPTION_REG</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-hexadecimal">0x51</span><span class="cpp1-symbol">;</span><span class="cpp1-space">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="cpp1-comment">//51
+</span><span class="cpp1-space">&nbsp;&nbsp;</span><span class="cpp1-identifier">TMR0</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-symbol">=</span><span class="cpp1-space">&nbsp;</span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+}
+
+}
+</span></code></pre><!--EndFragment--></body>
+</html>
