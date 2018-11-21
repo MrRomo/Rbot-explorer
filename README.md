@@ -19,7 +19,7 @@ Part of WiFiServer.h(for ESP8266) library modified.
 
 This project is used by the Arduino IDE(Tested in ver1.8.5).  
 
-Reference Blog --> https://www.ricardoromo.co/rbot-explorer
+Reference Blog --> https://ricardoromo.co/proyectos/rbot-explorer.html
 
 This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.  
 
