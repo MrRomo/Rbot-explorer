@@ -2,8 +2,10 @@
 #include <WiFiMulti.h>
 #include "ESP32_SPIFFS_EasyWebSocket.h" //beta ver 1.60
 
+
 const char* ssid = "JR2GWIFI"; //Nombre de la rec
 const char* password = "ADBAE5FA"; //Clave de la red
+
 
 const char* HTM_head_file1 = "/EWS/LIPhead1.txt"; //Archivo de encabezado HTML 1
 const char* HTM_head_file2 = "/EWS/LIPhead2.txt"; //Archivo de encabezado HTML 2
@@ -61,7 +63,7 @@ void setup() {
   delay(1000);
 
   ews.EWS_server_begin();
-  
+
   Serial.println(); Serial.println("Initializing SPIFFS ...");
 
   if (!SPIFFS.begin()) {
@@ -89,26 +91,26 @@ void loop() {
       angle+=1;
       if(angle>=36){
         switchDir = false;
-      }  
+      }
     }
     else {
       angle-=1;
       if(angle<=0){
         switchDir = true;
-      }  
+      }
     }
-    
-    
+
+
     distancia_s = random(60, 150);
     measure = String(angle)+"|"+String(distancia_s);
     websocket_send(measure);
     check_ms = false;
-   
-    
+
+
     SF_text = "Obstaculo a: " + String(distancia_s) + " cm";
-    
 
     ret_str = ews.EWS_ESP32CharReceive(PingSendTime);
+
     if (ret_str != "\0") {
       if (ret_str != "Ping") {
         if (ret_str[0] != 't') {
@@ -125,7 +127,7 @@ void loop() {
               Serial.write(0);
               statusR = "Stop";
               break;
-              
+
           }
         }
       }
@@ -155,8 +157,9 @@ void websocket_send(String sf_txt) {
 void websocket_handshake() {
   if (ews.Get_Http_Req_Status()) { //Determinar si hubo una solicitud GET del navegador
     String html_str1 = "", html_str2 = "", html_str3 = "", html_str4 = "", html_str5 = "", html_str6 = "", html_str7 = "";
-   
+
     html_str1 = "<body> <style media=\"screen\"> body { background: linear-gradient(to left, #e01a1a,#000000); max-width: 80%; margin: auto; text-align: center; color:#fff; } fieldset { border-style: solid; border-color: rgb(255, 255, 255); border-radius: 5px; } .sensorF { border-style: solid; background: rgb(0, 204, 17); border-color: rgb(255, 255, 255); border-radius: 5px; } .sensorR { background: rgb(0, 204, 17); } .sensorL { background: rgb(0, 204, 17); } legend { font-style: italic; background: #000000bb; color:#fff; } span { style=\"font-size:20px; color:#fff;\" } .metric{ justify-content: space-around; display: flex; margin-top: 10px; } input { width:100px; height:40px; font-size:28px; color:#000; background-color:#fff; } .contenedor { width: 80%; margin: 20px auto; } </style> <header> <div class=\"portada\"> <br> Control de Robot <br><br> ESP32 por el metodo WebSocket <br><br> Por Ricardo Romo </div> </header> <div class=\"contenedor\"> <fieldset id=\"sensorF\" class=\"sensorF\"> <legend> Sensor Frontral </legend> <span id=\"SF\">Obstaculo a: 154.88 cm</span> </fieldset> </div> <div class=\"canvasDraw\" id=\"radar\"> <canvas width=\"300\" height=\"300\" id=\"plano\"></canvas> </div> <input type=\"button\" value=\"&nwarr; \" onclick=\"doSend(100,'h'); data_tmp = 0;\"> <input type=\"button\" value=\"&UpTeeArrow;\" onclick=\"doSend(100,'w'); data_tmp = 0;\"> <input type=\"button\" value=\"&nearr;\" onclick=\"doSend(100,'k'); data_tmp = 0;\"> <br><br> <input type=\"button\" value=\"&olarr;\" onclick=\"doSend(100,'a'); data_tmp = 0;\"> <input type=\"button\" value=\"&empty;\" onclick=\"doSend(100,'q'); data_tmp = 0;\"> <input type=\"button\" value=\"&orarr;\" onclick=\"doSend(100,'d'); data_tmp = 0;\"> <br><br> <input type=\"button\" value=\"&DownTeeArrow;\" onclick=\"doSend(100,'s'); data_tmp = 0;\"> <br><br> <fieldset id=\"sensor\"> <legend> Estado del Robot</legend> <span id=\"statusR\">stop</span> </fieldset> <br> <fieldset> <legend> WebSocket Status</legend> <span id=\"__wsStatus__\">WebSocket.CONNECTED</span> </fieldset> <br><br> <br><br> <input type=\"button\" value=\"WS-Reconnect\" onclick=\"init();\"> <br><br> <input type=\"button\" value=\"WS CLOSE\" onclick=\"WS_close()\"> <input type=\"button\" value=\"ReLoad\" onclick=\"window.location.reload()\"> <script src=\"https://ricardoromo.co/Rbot/index.js\" charset=\"utf-8\"></script> </body> </html>";
+
 
     //FunciÃ³n de handshake de WebSocket
     ews.EWS_HandShake_main(3, HTM_head_file1, HTM_head_file2, HTML_body_file, dummy_file, LIP, html_str1, html_str2, html_str3, html_str4, html_str5, html_str6, html_str7);
