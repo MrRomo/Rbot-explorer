@@ -1,8 +1,8 @@
-CCS PCM C Compiler, Version 4.104, 5967               22-nov.-18 19:22
+CCS PCM C Compiler, Version 4.104, 5967               22-nov.-18 19:41
 
-               Filename: P:\Google\Universidad\2018_II\Microprocesamiento\Tercer Seguimiento\RbotExplorerProject\PIC\SerialPCW\SerialPCW.lst
+               Filename: P:\Google\Universidad\2018_II\Microprocesamiento\Tercer Seguimiento\Rbot-explorer\PIC\SerialPCW\SerialPCW.lst
 
-               ROM used: 133 words (2%)
+               ROM used: 161 words (2%)
                          Largest free fragment is 2048
                RAM used: 7 (2%) at main() level
                          8 (2%) worst case
@@ -42,7 +42,7 @@ CCS PCM C Compiler, Version 4.104, 5967               22-nov.-18 19:22
 0017:  GOTO   00A
 0018:  BCF    0A.3
 0019:  BCF    0A.4
-001A:  GOTO   047 (RETURN)
+001A:  GOTO   049 (RETURN)
 .................... #use RS232 (BAUD=9600,BITS=8,PARITY=N,XMIT=PIN_C6,RCV=PIN_C7) 
 .................... //# org 0x000, 0x1fff{} 
 ....................  
@@ -85,113 +85,142 @@ CCS PCM C Compiler, Version 4.104, 5967               22-nov.-18 19:22
 0039:  CLRF   08
 003A:  CLRF   09
 ....................  int conteo; 
-.................... set_tris_b(0b00000000); 
+.................... set_tris_d(0b00000000); 
 003B:  MOVLW  00
 003C:  BSF    03.5
 003D:  BCF    03.6
-003E:  MOVWF  06
+003E:  MOVWF  08
 ....................  
 ....................  
 .................... while(1){ 
 ....................  
 ....................  
-.................... if(1){ 
+.................... if(input(swo)==1){ 
+003F:  BCF    03.5
+0040:  BTFSS  06.7
+0041:  GOTO   04F
 .................... conteo=conteo+1; 
-003F:  MOVLW  01
-0040:  BCF    03.5
-0041:  ADDWF  21,F
+0042:  MOVLW  01
+0043:  ADDWF  21,F
 .................... delay_ms(500); 
-0042:  MOVLW  02
-0043:  MOVWF  22
-0044:  MOVLW  FA
-0045:  MOVWF  23
-0046:  GOTO   004
-0047:  DECFSZ 22,F
-0048:  GOTO   044
+0044:  MOVLW  02
+0045:  MOVWF  22
+0046:  MOVLW  FA
+0047:  MOVWF  23
+0048:  GOTO   004
+0049:  DECFSZ 22,F
+004A:  GOTO   046
 .................... if (conteo>10)  
-0049:  MOVF   21,W
-004A:  SUBLW  0A
-004B:  BTFSS  03.0
+004B:  MOVF   21,W
+004C:  SUBLW  0A
+004D:  BTFSS  03.0
 .................... conteo = 0x00;    
-004C:  CLRF   21
+004E:  CLRF   21
 ....................    
 .................... } 
 ....................  
 .................... putc(conteo);   
-004D:  MOVF   21,W
-004E:  BTFSS  0C.4
-004F:  GOTO   04E
-0050:  MOVWF  19
+004F:  MOVF   21,W
+0050:  BTFSS  0C.4
+0051:  GOTO   050
+0052:  MOVWF  19
 ....................  
 ....................          switch(conteo){ 
-0051:  MOVF   21,W
-0052:  ADDLW  F6
-0053:  BTFSC  03.0
-0054:  GOTO   074
-0055:  ADDLW  0A
-0056:  GOTO   077
+0053:  MOVF   21,W
+0054:  ADDLW  F6
+0055:  BTFSC  03.0
+0056:  GOTO   091
+0057:  ADDLW  0A
+0058:  GOTO   093
 ....................      
 ....................          case 0: 
 ....................          output_b (0b1000000); 
-0057:  MOVLW  40
-0058:  MOVWF  06
+0059:  MOVLW  40
+005A:  MOVWF  06
 ....................          
 ....................          break;          
-0059:  GOTO   074
+005B:  GOTO   091
 ....................          case 1: 
-....................          output_b (0b1111001); 
-005A:  MOVLW  79
-005B:  MOVWF  06
+....................          output_d (0b1111001); 
+005C:  BSF    03.5
+005D:  CLRF   08
+005E:  MOVLW  79
+005F:  BCF    03.5
+0060:  MOVWF  08
 ....................          
 ....................          break;  
-005C:  GOTO   074
+0061:  GOTO   091
 ....................          case 2: 
-....................          output_b (0b0100100); 
-005D:  MOVLW  24
-005E:  MOVWF  06
+....................          output_d (0b0100100); 
+0062:  BSF    03.5
+0063:  CLRF   08
+0064:  MOVLW  24
+0065:  BCF    03.5
+0066:  MOVWF  08
 ....................          break;           
-005F:  GOTO   074
+0067:  GOTO   091
 ....................          case 3: 
-....................          output_b (0b0110000); 
-0060:  MOVLW  30
-0061:  MOVWF  06
+....................          output_d (0b0110000); 
+0068:  BSF    03.5
+0069:  CLRF   08
+006A:  MOVLW  30
+006B:  BCF    03.5
+006C:  MOVWF  08
 ....................          break;           
-0062:  GOTO   074
+006D:  GOTO   091
 ....................          case 4: 
-....................          output_b (0b0011001); 
-0063:  MOVLW  19
-0064:  MOVWF  06
+....................          output_d (0b0011001); 
+006E:  BSF    03.5
+006F:  CLRF   08
+0070:  MOVLW  19
+0071:  BCF    03.5
+0072:  MOVWF  08
 ....................          break;                   
-0065:  GOTO   074
+0073:  GOTO   091
 ....................          case 5: 
-....................          output_b (0x12); 
-0066:  MOVLW  12
-0067:  MOVWF  06
+....................          output_d (0x12); 
+0074:  BSF    03.5
+0075:  CLRF   08
+0076:  MOVLW  12
+0077:  BCF    03.5
+0078:  MOVWF  08
 ....................          break;    
-0068:  GOTO   074
+0079:  GOTO   091
 ....................          case 6: 
-....................          output_b (0x02); 
-0069:  MOVLW  02
-006A:  MOVWF  06
+....................          output_d (0x02); 
+007A:  BSF    03.5
+007B:  CLRF   08
+007C:  MOVLW  02
+007D:  BCF    03.5
+007E:  MOVWF  08
 ....................          break; 
-006B:  GOTO   074
+007F:  GOTO   091
 ....................          case 7: 
-....................          output_b (0x78); 
-006C:  MOVLW  78
-006D:  MOVWF  06
+....................          output_d (0x78); 
+0080:  BSF    03.5
+0081:  CLRF   08
+0082:  MOVLW  78
+0083:  BCF    03.5
+0084:  MOVWF  08
 ....................          break;    
-006E:  GOTO   074
+0085:  GOTO   091
 ....................          case 8: 
-....................          output_b (0x00); 
-006F:  CLRF   06
+....................          output_d (0x00); 
+0086:  BSF    03.5
+0087:  CLRF   08
+0088:  BCF    03.5
+0089:  CLRF   08
 ....................          break;  
-0070:  GOTO   074
+008A:  GOTO   091
 ....................          case 9: 
-....................          output_b (0x18); 
-0071:  MOVLW  18
-0072:  MOVWF  06
+....................          output_d (0x18); 
+008B:  BSF    03.5
+008C:  CLRF   08
+008D:  MOVLW  18
+008E:  BCF    03.5
+008F:  MOVWF  08
 ....................          break;  
-0073:  GOTO   074
+0090:  GOTO   091
 ....................           
 ....................  
 ....................           
@@ -199,15 +228,14 @@ CCS PCM C Compiler, Version 4.104, 5967               22-nov.-18 19:22
 ....................  
 ....................  
 .................... } 
-0074:  BSF    03.5
-0075:  GOTO   03F
+0091:  GOTO   040
 ....................  
 ....................  
 ....................  
 ....................  
 .................... } 
 ....................  
-0076:  SLEEP
+0092:  SLEEP
 
 Configuration Fuses:
    Word  1: 2FE7   RC NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG

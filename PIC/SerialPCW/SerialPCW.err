@@ -1,4 +1,2 @@
->>> Warning 203 "SerialPCW.c" Line 16(1,1): Condition always TRUE
->>> Warning 203 "SerialPCW.c" Line 19(1,1): Condition always TRUE
-      Memory usage:   ROM=2%      RAM=2% - 2%
-      0 Errors,  2 Warnings.
+*** Error 126 "SerialPCW.c" Line 10(1,8): Invalid ORG range  Reset vector is at 0x0000
+      1 Errors,  0 Warnings.

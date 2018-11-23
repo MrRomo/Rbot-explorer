@@ -22,7 +22,7 @@
 ROM Allocation:
 0004  @delay_ms1
 001B  main
-0077  @goto10069
+0093  @goto10073
 001B  @cinit
 
 
@@ -31,14 +31,14 @@ User Memory space:
 User Memory space: 
 
 Project Directory:
-    P:\Google\Universidad\2018_II\Microprocesamiento\Tercer Seguimiento\RbotExplorerProject\PIC\SerialPCW\
+    P:\Google\Universidad\2018_II\Microprocesamiento\Tercer Seguimiento\Rbot-explorer\PIC\SerialPCW\
 
 Project Files:
     SerialPCW.c
     C:\Program Files (x86)\PICC\devices\16f887.h
 
 Units:
-    P:\Google\Universidad\2018_II\Microprocesamiento\Tercer Seguimiento\RbotExplorerProject\PIC\SerialPCW\SerialPCW (main)
+    P:\Google\Universidad\2018_II\Microprocesamiento\Tercer Seguimiento\Rbot-explorer\PIC\SerialPCW\SerialPCW (main)
 
 Compiler Settings:
     Processor:      PIC16F887

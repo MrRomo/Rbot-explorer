@@ -1,16 +1,15 @@
 #include <16f887.h>
 #use delay (clock = 48000000)
 #use RS232 (BAUD=9600,BITS=8,PARITY=N,XMIT=PIN_C6,RCV=PIN_C7)
-//# org 0x000, 0x1fff{}
-
-#use fast_io(b)  
+# org 0x0000
+#use fast_io(d)  
 #define swo pin_B7
 
 
 
 void main(){
  int conteo;
-set_tris_b(0b00000000);
+set_tris_d(0b00000000);
 
 
 while(1){
@@ -20,7 +19,7 @@ if(input(swo)==1){
 conteo=conteo+1;
 delay_ms(500);
 if (conteo>10) 
-conteo = 0x00;   
+conteo = 0x00;  
   
 }
 
@@ -33,32 +32,32 @@ putc(conteo);
         
          break;         
          case 1:
-         output_b (0b1111001);
+         output_d (0b1111001);
         
          break; 
          case 2:
-         output_b (0b0100100);
+         output_d (0b0100100);
          break;          
          case 3:
-         output_b (0b0110000);
+         output_d (0b0110000);
          break;          
          case 4:
-         output_b (0b0011001);
+         output_d (0b0011001);
          break;                  
          case 5:
-         output_b (0x12);
+         output_d (0x12);
          break;   
          case 6:
-         output_b (0x02);
+         output_d (0x02);
          break;
          case 7:
-         output_b (0x78);
+         output_d (0x78);
          break;   
          case 8:
-         output_b (0x00);
+         output_d (0x00);
          break; 
          case 9:
-         output_b (0x18);
+         output_d (0x18);
          break; 
          
 

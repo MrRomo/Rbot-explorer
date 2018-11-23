@@ -1,9 +1,9 @@
 
-ROM used: 133 (2%)
-          133 (2%) including unused fragments
+ROM used: 161 (2%)
+          161 (2%) including unused fragments
 
           0 Average locations per line
-          4 Average locations per statement
+          5 Average locations per statement
 
 RAM used: 7 (2%) at main() level
           8 (2%) worst case
@@ -19,18 +19,18 @@ Lines Stmts  %   Files
 
 Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
-0     23  17   1             @delay_ms1
-0     92  69   2   798  5.8  main
-0     14  11   0             @goto10069
+0     23  14   1             @delay_ms1
+0    120  75   2   831  6.3  main
+0     14   9   0             @goto10073
 
 Program metrics:
     Functions               1
     Statements              31
     Comments                84
-    Volume (V)              804
-    Difficilty (D)          5.5
-    Effort to implement (E) 4453
-    Time to implement (T)   4 minutes
+    Volume (V)              837
+    Difficilty (D)          6.0
+    Effort to implement (E) 5038
+    Time to implement (T)   5 minutes
     Est Delivered Bugs (B)  0
     Cyclomatic Complexity   12
     Maintainability (MI)    128
@@ -38,7 +38,7 @@ Program metrics:
  Segment     Used  Free
 -----------  ----  ----
 00000-00003     4  0  
-00004-007FF   129  1915  
+00004-007FF   157  1887  
 00800-00FFF     0  2048  
 01000-017FF     0  2048  
 01800-01FFF     0  2048  

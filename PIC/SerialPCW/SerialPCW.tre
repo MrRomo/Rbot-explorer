@@ -1,5 +1,5 @@
 青SerialPCW
-   青main  0/92  Ram=2
+   青main  0/120  Ram=2
       団??0??
       団@delay_ms1  0/23  Ram=1
-      青@goto10069  0/14  Ram=0
+      青@goto10073  0/14  Ram=0
