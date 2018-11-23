@@ -1,26 +1,24 @@
+int a = 523;
+char txt[6]={0};
 void setup();
 
 void main() {
+    setup();
   UART1_Init(9600);
-  setup();
+  Delay_ms(200);                  // Wait for UART module to stabilize
+
+
+
   while (1) {
-    UART1_Write(2);
-    if(PORTB.f6){
-      while(PORTB.f6);
-      UART1_write(1);
-       UART1_write(1);
-        UART1_write(1); UART1_write(1);
-    }
-    if (UART1_Data_Ready() == 1) {
-     char receive = UART1_Read();
-     UART1_write(receive);
-     if(receive>1){
-      PORTD.f2 = 1;
-      DELAY_MS(500);
-      PORTD.f2 = 0;
-      DELAY_MS(500);
-     }
-    }
+    UART1_Write_Text("hola como es estas");
+    IntToStr(a,txt);
+    UART1_Write_Text(txt);
+    UART1_Write_Text("\n\r");
+
+   /* PORTD.f2 = 1;
+    delay_ms(1000);
+    PORTD.f2 = 0;
+    delay_ms(1000);   */
   }
 }
 
@@ -30,4 +28,5 @@ void setup () {
   TRISA = 0X00;
   TRISB = 0X50;
   TRISD = 0X00;
+
 }

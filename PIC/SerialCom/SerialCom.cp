@@ -1,25 +1,21 @@
 #line 1 "P:/Google/Universidad/2018_II/Microprocesamiento/Tercer Seguimiento/RbotExplorerProject/PIC/SerialCom/SerialCom.c"
+int a = 523;
+char txt[6]={0};
 void setup();
 
 void main() {
- UART1_Init(9600);
  setup();
+ UART1_Init(9600);
+ Delay_ms(200);
+
+
+
  while (1) {
- UART1_Write(2);
- if(PORTB.f6){
- while(PORTB.f6);
- UART1_write(1);
- }
- if (UART1_Data_Ready() == 1) {
- char receive = UART1_Read();
- UART1_write(receive);
- if(receive>1){
- PORTD.f2 = 1;
- DELAY_MS(500);
- PORTD.f2 = 0;
- DELAY_MS(500);
- }
- }
+ UART1_Write_Text("hola como es estas");
+ IntToStr(a,txt);
+ UART1_Write_Text(txt);
+ UART1_Write_Text("\n\r");
+#line 22 "P:/Google/Universidad/2018_II/Microprocesamiento/Tercer Seguimiento/RbotExplorerProject/PIC/SerialCom/SerialCom.c"
  }
 }
 
@@ -29,4 +25,5 @@ void setup () {
  TRISA = 0X00;
  TRISB = 0X50;
  TRISD = 0X00;
+
 }

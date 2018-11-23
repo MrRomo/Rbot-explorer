@@ -1,0 +1,214 @@
+CCS PCM C Compiler, Version 4.104, 5967               22-nov.-18 19:22
+
+               Filename: P:\Google\Universidad\2018_II\Microprocesamiento\Tercer Seguimiento\RbotExplorerProject\PIC\SerialPCW\SerialPCW.lst
+
+               ROM used: 133 words (2%)
+                         Largest free fragment is 2048
+               RAM used: 7 (2%) at main() level
+                         8 (2%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   01B
+0003:  NOP
+.................... #include <16f887.h> 
+.................... //////// Standard Header file for the PIC16F887 device //////////////// 
+.................... #device PIC16F887 
+.................... #list 
+....................  
+.................... #use delay (clock = 48000000) 
+*
+0004:  MOVLW  23
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  0F
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  8F
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  NOP
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  BCF    0A.3
+0019:  BCF    0A.4
+001A:  GOTO   047 (RETURN)
+.................... #use RS232 (BAUD=9600,BITS=8,PARITY=N,XMIT=PIN_C6,RCV=PIN_C7) 
+.................... //# org 0x000, 0x1fff{} 
+....................  
+.................... #use fast_io(b)   
+.................... #define swo pin_B7 
+....................  
+....................  
+....................  
+.................... void main(){ 
+001B:  CLRF   04
+001C:  BCF    03.7
+001D:  MOVLW  1F
+001E:  ANDWF  03,F
+001F:  BSF    03.5
+0020:  BSF    03.6
+0021:  BSF    07.3
+0022:  MOVLW  E1
+0023:  BCF    03.6
+0024:  MOVWF  19
+0025:  MOVLW  04
+0026:  MOVWF  1A
+0027:  MOVLW  A6
+0028:  MOVWF  18
+0029:  MOVLW  90
+002A:  BCF    03.5
+002B:  MOVWF  18
+002C:  BSF    03.5
+002D:  BSF    03.6
+002E:  MOVF   09,W
+002F:  ANDLW  C0
+0030:  MOVWF  09
+0031:  BCF    03.6
+0032:  BCF    1F.4
+0033:  BCF    1F.5
+0034:  MOVLW  00
+0035:  BSF    03.6
+0036:  MOVWF  08
+0037:  BCF    03.5
+0038:  CLRF   07
+0039:  CLRF   08
+003A:  CLRF   09
+....................  int conteo; 
+.................... set_tris_b(0b00000000); 
+003B:  MOVLW  00
+003C:  BSF    03.5
+003D:  BCF    03.6
+003E:  MOVWF  06
+....................  
+....................  
+.................... while(1){ 
+....................  
+....................  
+.................... if(1){ 
+.................... conteo=conteo+1; 
+003F:  MOVLW  01
+0040:  BCF    03.5
+0041:  ADDWF  21,F
+.................... delay_ms(500); 
+0042:  MOVLW  02
+0043:  MOVWF  22
+0044:  MOVLW  FA
+0045:  MOVWF  23
+0046:  GOTO   004
+0047:  DECFSZ 22,F
+0048:  GOTO   044
+.................... if (conteo>10)  
+0049:  MOVF   21,W
+004A:  SUBLW  0A
+004B:  BTFSS  03.0
+.................... conteo = 0x00;    
+004C:  CLRF   21
+....................    
+.................... } 
+....................  
+.................... putc(conteo);   
+004D:  MOVF   21,W
+004E:  BTFSS  0C.4
+004F:  GOTO   04E
+0050:  MOVWF  19
+....................  
+....................          switch(conteo){ 
+0051:  MOVF   21,W
+0052:  ADDLW  F6
+0053:  BTFSC  03.0
+0054:  GOTO   074
+0055:  ADDLW  0A
+0056:  GOTO   077
+....................      
+....................          case 0: 
+....................          output_b (0b1000000); 
+0057:  MOVLW  40
+0058:  MOVWF  06
+....................          
+....................          break;          
+0059:  GOTO   074
+....................          case 1: 
+....................          output_b (0b1111001); 
+005A:  MOVLW  79
+005B:  MOVWF  06
+....................          
+....................          break;  
+005C:  GOTO   074
+....................          case 2: 
+....................          output_b (0b0100100); 
+005D:  MOVLW  24
+005E:  MOVWF  06
+....................          break;           
+005F:  GOTO   074
+....................          case 3: 
+....................          output_b (0b0110000); 
+0060:  MOVLW  30
+0061:  MOVWF  06
+....................          break;           
+0062:  GOTO   074
+....................          case 4: 
+....................          output_b (0b0011001); 
+0063:  MOVLW  19
+0064:  MOVWF  06
+....................          break;                   
+0065:  GOTO   074
+....................          case 5: 
+....................          output_b (0x12); 
+0066:  MOVLW  12
+0067:  MOVWF  06
+....................          break;    
+0068:  GOTO   074
+....................          case 6: 
+....................          output_b (0x02); 
+0069:  MOVLW  02
+006A:  MOVWF  06
+....................          break; 
+006B:  GOTO   074
+....................          case 7: 
+....................          output_b (0x78); 
+006C:  MOVLW  78
+006D:  MOVWF  06
+....................          break;    
+006E:  GOTO   074
+....................          case 8: 
+....................          output_b (0x00); 
+006F:  CLRF   06
+....................          break;  
+0070:  GOTO   074
+....................          case 9: 
+....................          output_b (0x18); 
+0071:  MOVLW  18
+0072:  MOVWF  06
+....................          break;  
+0073:  GOTO   074
+....................           
+....................  
+....................           
+....................          } 
+....................  
+....................  
+.................... } 
+0074:  BSF    03.5
+0075:  GOTO   03F
+....................  
+....................  
+....................  
+....................  
+.................... } 
+....................  
+0076:  SLEEP
+
+Configuration Fuses:
+   Word  1: 2FE7   RC NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   NOWRT BORV40

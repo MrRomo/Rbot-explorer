@@ -1,6 +1,10 @@
 main
-	UART1_Init
+	__CC2DW
+		____DoICP
 	setup
-	UART1_Write
-	UART1_Data_Ready
-	UART1_Read
+	UART1_Init
+	UART1_Write_Text
+		UART1_Write
+	IntToStr
+		WordToStr
+			Div_16X16_U

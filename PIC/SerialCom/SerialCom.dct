@@ -168,6 +168,7 @@ _spi_t6963c_horizontal
 _spi_t6963c_vertical
 _t6963c_horizontal
 _t6963c_vertical
+a
 abden
 abden_bit
 abdovf
@@ -1561,6 +1562,7 @@ txif
 txif_bit
 txreg
 txsta
+txt
 ua
 ua_bit
 uart1_data_ready
