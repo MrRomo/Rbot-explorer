@@ -1,11 +1,17 @@
 #include <WiFi.h>
 #include <WiFiMulti.h>
 #include "ESP32_SPIFFS_EasyWebSocket.h" //beta ver 1.60
+// Definiciones de pines usados para los motores//
+#define PIN_MOTOR_R_FWD 26
+#define PIN_MOTOR_R_BWD 18
+#define PIN_MOTOR_L_FWD 19
+#define PIN_MOTOR_L_BWD 23
 
 
 const char* ssid = "JR2GWIFI"; //Nombre de la rec
 const char* password = "ADBAE5FA"; //Clave de la red
 
+char receiver[4] = {22,21,17,16};
 
 const char* HTM_head_file1 = "/EWS/LIPhead1.txt"; //Archivo de encabezado HTML 1
 const char* HTM_head_file2 = "/EWS/LIPhead2.txt"; //Archivo de encabezado HTML 2
@@ -40,12 +46,18 @@ bool switchDir = false;
 
 //*************ConfiguraciÃ³n*************************
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   delay(10);
   Serial.println();
   Serial.print(F("Connecting to "));
   Serial.println(ssid);
-
+  pinMode(PIN_MOTOR_R_FWD, OUTPUT);
+  pinMode(PIN_MOTOR_R_BWD, OUTPUT);
+  pinMode(PIN_MOTOR_L_FWD, OUTPUT);
+  pinMode(PIN_MOTOR_L_BWD, OUTPUT);
+  for (char i = 0; i < 4; i++) {
+    pinMode(receiver[i],INPUT);
+  }
   wifiMulti.addAP(ssid, password);
 
   Serial.println(F("Connecting Wifi..."));
@@ -101,7 +113,12 @@ void loop() {
     }
 
 
-    distancia_s = random(60, 150);
+    //distancia_s = random(60, 150);
+    //distancia_s = readPines()*10;
+    if(Serial.available()){
+      distancia_s = Serial.read();
+      Serial.println(distancia_s );
+    }
     measure = String(angle)+"|"+String(distancia_s);
     websocket_send(measure);
     check_ms = false;
@@ -117,15 +134,54 @@ void loop() {
           int ws_data = (ret_str[0] - 0x30) * 100 + (ret_str[1] - 0x30) * 10 + (ret_str[2] - 0x30);
           Serial.println(ret_str[4]);
           switch (ret_str[4]) {
-            case 'W':
+             case 'w':
               Serial.println("Forward");
-              Serial.write(2);
+               motion(LOW, LOW, LOW, LOW);
+               delay(20);
+              motion(HIGH, LOW, LOW, HIGH);
               statusR = "Forward";
               break;
-            default:
-              Serial.println("Stop");
-              Serial.write(0);
+            case 's':
+              Serial.println("Backward");
+              motion(LOW, LOW, LOW, LOW);
+              delay(20);
+              motion(LOW, HIGH, HIGH, LOW);
+              statusR = "Backward";
+              break;
+            case 'a':
+              Serial.println("Right");
+              motion(LOW, LOW, LOW, LOW);
+              delay(20);
+              motion(HIGH, LOW, HIGH, LOW);
+              statusR = "Right";
+              break;
+            case 'd':
+              Serial.println("Left");
+              motion(LOW, LOW, LOW, LOW);
+               delay(20);
+              motion(LOW, HIGH, LOW, HIGH);
+              statusR = "Left";
+              break;
+            case 'q':
+              Serial.println("Left Quarter");
+              motion(LOW, LOW, LOW, LOW);
+               delay(20);
+              motion(LOW, LOW, LOW, LOW);
               statusR = "Stop";
+              break;
+            case 'h':
+              Serial.println("Stop");
+              motion(HIGH, LOW, HIGH, LOW);
+              delay(200);
+              motion(LOW, LOW, LOW, LOW);
+              statusR = "Left Quarter";
+              break;
+            case 'k':
+              Serial.println("Right Quarter");
+              motion(LOW, HIGH, LOW, HIGH);
+              delay(200);
+              motion(LOW, LOW, LOW, LOW);
+              statusR = "Right Quarter";
               break;
 
           }
@@ -164,4 +220,10 @@ void websocket_handshake() {
     //FunciÃ³n de handshake de WebSocket
     ews.EWS_HandShake_main(3, HTM_head_file1, HTM_head_file2, HTML_body_file, dummy_file, LIP, html_str1, html_str2, html_str3, html_str4, html_str5, html_str6, html_str7);
   }
+}
+void motion(int R_FWD, int R_BWD, int L_FWD, int L_BWD) {
+  digitalWrite(PIN_MOTOR_R_FWD, R_FWD);
+  digitalWrite(PIN_MOTOR_R_BWD, R_BWD);
+  digitalWrite(PIN_MOTOR_L_FWD, L_FWD);
+  digitalWrite(PIN_MOTOR_L_BWD, L_BWD);
 }

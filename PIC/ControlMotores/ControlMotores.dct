@@ -438,7 +438,6 @@ d_a_bit
 d_bit
 d_not_a
 d_not_a_bit
-data
 data_address
 data_address_bit
 dc
@@ -467,6 +466,7 @@ delay_5ms
 delay_80us
 delay_8ms
 delay_cyc
+direction
 div
 div_16x16_s
 div_16x16_s_l

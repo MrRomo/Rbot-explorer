@@ -1,4 +1,4 @@
-#line 1 "P:/Google/Universidad/2018_II/Microprocesamiento/Tercer Seguimiento/Rbot-explorer/PIC/SerialComMikro/SerialComMikro.c"
+#line 1 "P:/Google/Universidad/2018_II/Microprocesamiento/Tercer Seguimiento/Rbot-explorer/PIC/SerialComMikro.c"
 
 unsigned char Data = 0;
 void main(){
