@@ -3,8 +3,4 @@ main
 		____DoICP
 	setup
 	UART1_Init
-	UART1_Write_Text
-		UART1_Write
-	IntToStr
-		WordToStr
-			Div_16X16_U
+	UART1_Write

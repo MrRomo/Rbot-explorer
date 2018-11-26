@@ -1,4 +1,4 @@
-#line 1 "P:/Google/Universidad/2018_II/Microprocesamiento/Tercer Seguimiento/RbotExplorerProject/PIC/SerialCom/SerialCom.c"
+#line 1 "P:/Google/Universidad/2018_II/Microprocesamiento/Tercer Seguimiento/Rbot-explorer/PIC/SerialCom/SerialCom.c"
 int a = 523;
 char txt[6]={0};
 void setup();
@@ -11,11 +11,7 @@ void main() {
 
 
  while (1) {
- UART1_Write_Text("hola como es estas");
- IntToStr(a,txt);
- UART1_Write_Text(txt);
- UART1_Write_Text("\n\r");
-#line 22 "P:/Google/Universidad/2018_II/Microprocesamiento/Tercer Seguimiento/RbotExplorerProject/PIC/SerialCom/SerialCom.c"
+ UART1_Write(50);
  }
 }
 

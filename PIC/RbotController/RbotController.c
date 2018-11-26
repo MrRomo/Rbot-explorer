@@ -1,6 +1,6 @@
 #define Receiver PORTB
 #define HBriged PORTA
-#define INPUT PORTD<<4
+#define INPUT PORTD
 #define true 1
 #define false 0
 
@@ -13,26 +13,16 @@ void VDelay_us(unsigned time_us);
 int pos=0;
 char CW = true;
 void main(){
-
-  ANSEL = 0X00;
-  TRISA=0x00;
-  TRISD=0XFF;
-  HBriged = 0x00;
-
+  setup();
   while(1){
     servo();
-    motion();
+    PORTA = PORTD>>4;
   }
 }
 void  motion() {
   switch (INPUT) {
-    case (0x00)||(0x0A)||(0x06)||(~0x0A)||(~0x06):
-      HBriged = INPUT;
-      break;
-    case (0x01):
-      HBriged = INPUT;
-      delay_ms(200);
-      HBriged = 0x00;
+    case ((0x00)||(0xA0)||(0x60)||(~0xA0)||(~0x60)):
+
       break;
   }
 }
@@ -43,11 +33,11 @@ void setup(){
   TRISB=0x00;
   ANSELH=0x00;
   PORTB=0x00;
+  HBriged = 0x00;
 }
 
 void servo(){
     gira(pos);
-    delay_ms(300);
     if(CW){
       pos+=5;
     }else {
@@ -75,6 +65,6 @@ void gira(unsigned long grados){
          PORTB.F0=1;
          VDelay_us(valor);
          PORTB.F0=0;
-         VDelay_us(19000);
+         VDelay_us(5000);
      }
 }

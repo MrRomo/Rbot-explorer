@@ -6,7 +6,7 @@ void setup() {
 
 void loop() {
   while (Serial.available()) {
-    String a = Serial.readString(); // read the incoming data as string
+    char a = Serial.read(); // read the incoming data as string
     Serial.println(a);
   }
 }

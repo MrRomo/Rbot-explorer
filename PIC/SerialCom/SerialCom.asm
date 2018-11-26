@@ -25,48 +25,32 @@ L_main0:
 	GOTO       L_main0
 ;SerialCom.c,12 :: 		while (1) {
 L_main1:
-;SerialCom.c,13 :: 		UART1_Write_Text("hola como es estas");
-	MOVLW      ?lstr1_SerialCom+0
-	MOVWF      FARG_UART1_Write_Text_uart_text+0
-	CALL       _UART1_Write_Text+0
-;SerialCom.c,14 :: 		IntToStr(a,txt);
-	MOVF       _a+0, 0
-	MOVWF      FARG_IntToStr_input+0
-	MOVF       _a+1, 0
-	MOVWF      FARG_IntToStr_input+1
-	MOVLW      _txt+0
-	MOVWF      FARG_IntToStr_output+0
-	CALL       _IntToStr+0
-;SerialCom.c,15 :: 		UART1_Write_Text(txt);
-	MOVLW      _txt+0
-	MOVWF      FARG_UART1_Write_Text_uart_text+0
-	CALL       _UART1_Write_Text+0
-;SerialCom.c,16 :: 		UART1_Write_Text("\n\r");
-	MOVLW      ?lstr2_SerialCom+0
-	MOVWF      FARG_UART1_Write_Text_uart_text+0
-	CALL       _UART1_Write_Text+0
-;SerialCom.c,22 :: 		}
+;SerialCom.c,13 :: 		UART1_Write(50);
+	MOVLW      50
+	MOVWF      FARG_UART1_Write_data_+0
+	CALL       _UART1_Write+0
+;SerialCom.c,14 :: 		}
 	GOTO       L_main1
-;SerialCom.c,23 :: 		}
+;SerialCom.c,15 :: 		}
 L_end_main:
 	GOTO       $+0
 ; end of _main
 
 _setup:
 
-;SerialCom.c,25 :: 		void setup () {
-;SerialCom.c,26 :: 		ANSEL = 0X00;
+;SerialCom.c,17 :: 		void setup () {
+;SerialCom.c,18 :: 		ANSEL = 0X00;
 	CLRF       ANSEL+0
-;SerialCom.c,27 :: 		ANSELH = 0X00;
+;SerialCom.c,19 :: 		ANSELH = 0X00;
 	CLRF       ANSELH+0
-;SerialCom.c,28 :: 		TRISA = 0X00;
+;SerialCom.c,20 :: 		TRISA = 0X00;
 	CLRF       TRISA+0
-;SerialCom.c,29 :: 		TRISB = 0X50;
+;SerialCom.c,21 :: 		TRISB = 0X50;
 	MOVLW      80
 	MOVWF      TRISB+0
-;SerialCom.c,30 :: 		TRISD = 0X00;
+;SerialCom.c,22 :: 		TRISD = 0X00;
 	CLRF       TRISD+0
-;SerialCom.c,32 :: 		}
+;SerialCom.c,24 :: 		}
 L_end_setup:
 	RETURN
 ; end of _setup

@@ -438,7 +438,6 @@ d_a_bit
 d_bit
 d_not_a
 d_not_a_bit
-data
 data_address
 data_address_bit
 dc
@@ -686,7 +685,6 @@ longwordtostrwithzeros
 ltrim
 lts
 lts_bit
-main
 malloc
 man_break
 man_receive
