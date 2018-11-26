@@ -1,2 +1,9 @@
 main
+	__CC2DW
+		____DoICP
+	servo
+		gira
+			Mul_32x32_U
+			Div_32x32_U
+			VDelay_us
 	motion

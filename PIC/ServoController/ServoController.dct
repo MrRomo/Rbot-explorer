@@ -432,7 +432,6 @@ cren
 cren_bit
 csrc
 csrc_bit
-cw
 d
 d_a
 d_a_bit
@@ -717,7 +716,6 @@ mm_nrfreeblocksused
 mm_possiblyfragmented
 mm_totalfreememsize
 modf
-motion
 msk
 msk0
 msk0_bit
@@ -823,7 +821,6 @@ portb
 portc
 portd
 porte
-pos
 pow
 pr2
 prsen
@@ -1077,7 +1074,6 @@ sen
 sen_bit
 sendb
 sendb_bit
-servo
 setfdz32
 setfov32
 setfun32
