@@ -165,7 +165,7 @@ void loop() {
             case 'q':
               Serial.println("Left Quarter");
               motion(LOW, LOW, LOW, LOW);
-               delay(20);
+              delay(20);
               motion(LOW, LOW, LOW, LOW);
               statusR = "Stop";
               break;
