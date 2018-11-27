@@ -101,7 +101,7 @@ void loop() {
     }
     if(switchDir){
       angle+=1;
-      if(angle>=36){
+      if(angle>=180){
         switchDir = false;
       }
     }
@@ -113,12 +113,9 @@ void loop() {
     }
 
 
-    //distancia_s = random(60, 150);
+    distancia_s = random(60, 150);
     //distancia_s = readPines()*10;
-    if(Serial.available()){
-      distancia_s = Serial.read();
-      Serial.println(distancia_s );
-    }
+   
     measure = String(angle)+"|"+String(distancia_s);
     websocket_send(measure);
     check_ms = false;
@@ -163,14 +160,12 @@ void loop() {
               statusR = "Left";
               break;
             case 'q':
-              Serial.println("Left Quarter");
-              motion(LOW, LOW, LOW, LOW);
-              delay(20);
+              Serial.println("Stop");
               motion(LOW, LOW, LOW, LOW);
               statusR = "Stop";
               break;
             case 'h':
-              Serial.println("Stop");
+              Serial.println("Left Quarter");
               motion(HIGH, LOW, HIGH, LOW);
               delay(200);
               motion(LOW, LOW, LOW, LOW);
@@ -183,7 +178,6 @@ void loop() {
               motion(LOW, LOW, LOW, LOW);
               statusR = "Right Quarter";
               break;
-
           }
         }
       }
@@ -206,7 +200,7 @@ void Task1(void *pvParameters) {
 //**************************************************************
 void websocket_send(String sf_txt) {
   ews.EWS_ESP32_Str_SEND(sf_txt, "Sensor"); //enviar una cadena en el navegador  sobre el sensor frontal
-  ews.EWS_ESP32_Str_SEND(obsColor[0], "SensorF"); //enviar una cadena en el navegador  sobre el color del sensor frontal
+  //ews.EWS_ESP32_Str_SEND(obsColor[0], "SensorF"); //enviar una cadena en el navegador  sobre el color del sensor frontal
   ews.EWS_ESP32_Str_SEND(statusR, "statusR"); //enviar una cadena en el navegador  sobre el estado del robot
 }
 //************************* Websocket handshake **************************************
@@ -214,8 +208,7 @@ void websocket_handshake() {
   if (ews.Get_Http_Req_Status()) { //Determinar si hubo una solicitud GET del navegador
     String html_str1 = "", html_str2 = "", html_str3 = "", html_str4 = "", html_str5 = "", html_str6 = "", html_str7 = "";
 
-    html_str1 = "<body> <style media=\"screen\"> body { background: linear-gradient(to left, #e01a1a,#000000); max-width: 80%; margin: auto; text-align: center; color:#fff; } fieldset { border-style: solid; border-color: rgb(255, 255, 255); border-radius: 5px; } .sensorF { border-style: solid; background: rgb(0, 204, 17); border-color: rgb(255, 255, 255); border-radius: 5px; } .sensorR { background: rgb(0, 204, 17); } .sensorL { background: rgb(0, 204, 17); } legend { font-style: italic; background: #000000bb; color:#fff; } span { style=\"font-size:20px; color:#fff;\" } .metric{ justify-content: space-around; display: flex; margin-top: 10px; } input { width:100px; height:40px; font-size:28px; color:#000; background-color:#fff; } .contenedor { width: 80%; margin: 20px auto; } </style> <header> <div class=\"portada\"> <br> Control de Robot <br><br> ESP32 por el metodo WebSocket <br><br> Por Ricardo Romo </div> </header> <div class=\"contenedor\"> <fieldset id=\"sensorF\" class=\"sensorF\"> <legend> Sensor Frontral </legend> <span id=\"SF\">Obstaculo a: 154.88 cm</span> </fieldset> </div> <div class=\"canvasDraw\" id=\"radar\"> <canvas width=\"300\" height=\"300\" id=\"plano\"></canvas> </div> <input type=\"button\" value=\"&nwarr; \" onclick=\"doSend(100,'h'); data_tmp = 0;\"> <input type=\"button\" value=\"&UpTeeArrow;\" onclick=\"doSend(100,'w'); data_tmp = 0;\"> <input type=\"button\" value=\"&nearr;\" onclick=\"doSend(100,'k'); data_tmp = 0;\"> <br><br> <input type=\"button\" value=\"&olarr;\" onclick=\"doSend(100,'a'); data_tmp = 0;\"> <input type=\"button\" value=\"&empty;\" onclick=\"doSend(100,'q'); data_tmp = 0;\"> <input type=\"button\" value=\"&orarr;\" onclick=\"doSend(100,'d'); data_tmp = 0;\"> <br><br> <input type=\"button\" value=\"&DownTeeArrow;\" onclick=\"doSend(100,'s'); data_tmp = 0;\"> <br><br> <fieldset id=\"sensor\"> <legend> Estado del Robot</legend> <span id=\"statusR\">stop</span> </fieldset> <br> <fieldset> <legend> WebSocket Status</legend> <span id=\"__wsStatus__\">WebSocket.CONNECTED</span> </fieldset> <br><br> <br><br> <input type=\"button\" value=\"WS-Reconnect\" onclick=\"init();\"> <br><br> <input type=\"button\" value=\"WS CLOSE\" onclick=\"WS_close()\"> <input type=\"button\" value=\"ReLoad\" onclick=\"window.location.reload()\"> <script src=\"https://ricardoromo.co/Rbot/index.js\" charset=\"utf-8\"></script> </body> </html>";
-
+    html_str1 = "<body id=\"body\"> <style media=\"screen\"> body { background: linear-gradient(to left, #b10424,#580C1D); max-width: 80%; margin: auto; text-align: center; color:#fff; } .portada { font-family: 'Raleway', sans-serif; font-weight: bold; } fieldset { border-style: solid; border-color: rgb(255, 255, 255); border-radius: 5px; } .sensorF { border-style: solid; background: rgb(0, 204, 17); border-color: rgb(255, 255, 255); border-radius: 5px; } .sensorR { background: rgb(0, 204, 17); } .sensorL { background: rgb(0, 204, 17); } legend { font-style: italic; background: #332d2da6; color:#fff; } span { style=\"font-size:20px; color:#fff;\" } .metric{ justify-content: space-around; display: flex; margin-top: 10px; } input { width:100px; height:40px; font-size: 100%; font-family: 'Raleway', sans-serif; color:#000; background-color:#fff; border: rgba(0,0,0,0.75) 2px solid; border-radius: 10px; } .contenedor { width: 80%; margin: 20px auto; } .control { font-size: 28px; font-weight: bold; height: 50px; } canvas { border-radius: 10px; box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75); } </style> <header> <div class=\"portada\"> <p>Control de Robot</p> <p>ESP32 por el metodo WebSocket</p> <p>Por Ricardo Romo</p> </div> </header> <!-- <div class=\"contenedor\"> <fieldset id=\"sensorF\" class=\"sensorF\"> <legend> Sensor Frontral </legend> <span id=\"SF\">Obstaculo a: 154.88 cm</span> </fieldset> </div> --> <div class=\"canvasDraw\" id=\"radar\"> <canvas width=\"400\" height=\"200\" id=\"plano\"></canvas> </div> <br> <input class=\"control\" type=\"button\" value=\"&nwarr;\" onmousedown=\"doSend(100,'h'); data_tmp = 0;\" onmouseup=\"doSend(100,'q'); data_tmp = 0;\"> <input class=\"control\" type=\"button\" value=\"&UpTeeArrow;\" onmousedown=\"doSend(100,'w'); data_tmp = 0;\" onmouseup=\"doSend(100,'q'); data_tmp = 0;\"> <input class=\"control\" type=\"button\" value=\"&nearr;\" onmousedown=\"doSend(100,'k'); data_tmp = 0;\" onmouseup=\"doSend(100,'q'); data_tmp = 0;\"> <br> <input class=\"control\" type=\"button\" value=\"&olarr;\" onmousedown=\"doSend(100,'a'); data_tmp = 0;\" onmouseup=\"doSend(100,'q'); data_tmp = 0;\"> <input class=\"control\" type=\"button\" value=\"&otimes;\" onmousedown=\"doSend(100,'q'); data_tmp = 0;\" onmouseup=\"doSend(100,'q'); data_tmp = 0;\"> <input class=\"control\" type=\"button\" value=\"&orarr;\" onmousedown=\"doSend(100,'d'); data_tmp = 0;\" onmouseup=\"doSend(100,'q'); data_tmp = 0;\"> <br> <input class=\"control\" type=\"button\" value=\"&DownTeeArrow;\" onmousedown=\"doSend(100,'s'); data_tmp = 0;\" onmouseup=\"doSend(100,'q'); data_tmp = 0;\"> <br> <input class=\"control\" id=\"Changer\" type=\"button\" value=\"&timesb;\"> <br> <fieldset id=\"sensor\"> <legend> Estado del Robot</legend> <span id=\"statusR\">stop</span> </fieldset> <br> <fieldset> <legend> WebSocket Status</legend> <span id=\"__wsStatus__\">WebSocket.CONNECTED</span> </fieldset> <br> <input type=\"button\" value=\"WS-Reconnect\" onclick=\"init();\" > <input type=\"button\" value=\"WS CLOSE\" onclick=\"WS_close()\"> <input type=\"button\" value=\"ReLoad\" onclick=\"window.location.reload()\"> <script src=\"https://ricardoromo.co/Rbot/index.js\" charset=\"utf-8\"></script> <script src=\"index.js\" charset=\"utf-8\"></script> <link href=\"https://fonts.googleapis.com/css?family=Raleway:400,700\" rel=\"stylesheet\"> </body> </html>";
 
     //FunciÃ³n de handshake de WebSocket
     ews.EWS_HandShake_main(3, HTM_head_file1, HTM_head_file2, HTML_body_file, dummy_file, LIP, html_str1, html_str2, html_str3, html_str4, html_str5, html_str6, html_str7);

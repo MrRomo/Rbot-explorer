@@ -240,12 +240,16 @@
 
   </script>
 </head>
-<body>
+<body id="body">
   <style media="screen">
     body {
-      background: linear-gradient(to left, #e01a1a,#000000);
+      background: linear-gradient(to left, #b10424,#580C1D);
       max-width: 80%;
       margin: auto; text-align: center; color:#fff;
+    }
+    .portada {
+      font-family: 'Raleway', sans-serif;
+      font-weight: bold;
     }
     fieldset {
       border-style: solid;
@@ -267,7 +271,7 @@
     }
     legend {
       font-style: italic;
-      background: #000000bb;
+      background: #332d2da6;
       color:#fff;
 
     }
@@ -282,46 +286,56 @@
     input {
       width:100px;
       height:40px;
-      font-size:28px;
+      font-size: 100%;
+      font-family: 'Raleway', sans-serif;
       color:#000;
       background-color:#fff;
+      border: rgba(0,0,0,0.75) 2px solid;
+      border-radius: 10px;
     }
     .contenedor {
       width: 80%;
       margin: 20px auto;
-
+    }
+    .control {
+        font-size: 28px;
+        font-weight: bold;
+        height: 50px;
+    }
+    canvas {
+      border-radius: 10px;
+      box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
     }
   </style>
   <header>
     <div class="portada">
-      <br>
-      Control de Robot
-      <br><br>
-      ESP32 por el metodo WebSocket
-      <br><br>
-      Por Ricardo Romo
+      <p>Control de Robot</p>
+      <p>ESP32 por el metodo WebSocket</p>
+      <p>Por Ricardo Romo</p>
     </div>
   </header>
-  <div class="contenedor">
+  <!-- <div class="contenedor">
     <fieldset id="sensorF" class="sensorF">
       <legend> Sensor Frontral </legend>
       <span id="SF">Obstaculo a: 154.88 cm</span>
     </fieldset>
-  </div>
+  </div> -->
   <div class="canvasDraw" id="radar">
-    <canvas width="300" height="300" id="plano"></canvas>
+    <canvas width="400" height="200" id="plano"></canvas>
   </div>
-
-  <input type="button" value="&nwarr; " onclick="doSend(100,'h'); data_tmp = 0;">
-  <input type="button" value="&UpTeeArrow;" onclick="doSend(100,'w'); data_tmp = 0;">
-  <input type="button" value="&nearr;" onclick="doSend(100,'k'); data_tmp = 0;">
-  <br><br>
-  <input type="button" value="&olarr;" onclick="doSend(100,'a'); data_tmp = 0;">
-  <input type="button" value="&empty;" onclick="doSend(100,'q'); data_tmp = 0;">
-  <input type="button" value="&orarr;" onclick="doSend(100,'d'); data_tmp = 0;">
-  <br><br>
-  <input type="button" value="&DownTeeArrow;" onclick="doSend(100,'s'); data_tmp = 0;">
-  <br><br>
+  <br>
+  <input class="control" type="button" value="&nwarr;" onmousedown="doSend(100,'h'); data_tmp = 0;" onmouseup="doSend(100,'q'); data_tmp = 0;">
+  <input class="control" type="button" value="&UpTeeArrow;" onmousedown="doSend(100,'w'); data_tmp = 0;" onmouseup="doSend(100,'q'); data_tmp = 0;">
+  <input class="control" type="button" value="&nearr;" onmousedown="doSend(100,'k'); data_tmp = 0;" onmouseup="doSend(100,'q'); data_tmp = 0;">
+  <br>
+  <input class="control" type="button" value="&olarr;" onmousedown="doSend(100,'a'); data_tmp = 0;" onmouseup="doSend(100,'q'); data_tmp = 0;">
+  <input class="control" type="button" value="&otimes;" onmousedown="doSend(100,'q'); data_tmp = 0;" onmouseup="doSend(100,'q'); data_tmp = 0;">
+  <input class="control" type="button" value="&orarr;" onmousedown="doSend(100,'d'); data_tmp = 0;" onmouseup="doSend(100,'q'); data_tmp = 0;">
+  <br>
+  <input class="control" type="button" value="&DownTeeArrow;" onmousedown="doSend(100,'s'); data_tmp = 0;" onmouseup="doSend(100,'q'); data_tmp = 0;">
+  <br>
+  <input class="control" id="Changer" type="button" value="&timesb;">
+  <br>
   <fieldset id="sensor">
     <legend> Estado del Robot</legend>
     <span id="statusR">stop</span>
@@ -331,50 +345,12 @@
     <legend> WebSocket Status</legend>
     <span id="__wsStatus__">WebSocket.CONNECTED</span>
   </fieldset>
-  <br><br>
-  <br><br>
-  <input type="button" value="WS-Reconnect" onclick="init();">
-  <br><br>
+  <br>
+  <input type="button" value="WS-Reconnect" onclick="init();" >
   <input type="button" value="WS CLOSE" onclick="WS_close()">
   <input type="button" value="ReLoad" onclick="window.location.reload()">
-  <script src="https://ricardoromo.co/Rbot/index.js" charset="utf-8"></script>
-  <script type="text/javascript">
-    var lienzoElement = document.getElementById("plano");
-    var lienzo = lienzoElement.getContext("2d");
-    var distancias = [150,15,50,75,80,10,120,110,80,150,15,50,75,80,10,120,110,80,110,80,150,15,50,75,80,10,120,110,80,150,15,50,75,80,10,120,110,80,110,80]
-    var angulos =[180,90,0,45,140,123,15,50,60]
-
-
-    setInterval(()=>{
-      rastreador()
-    },200)
-
-    function rastreador() {
-      console.log("INNER");
-      lienzo.beginPath();
-      lienzo.rect(0, 0, 300, 300);
-      lienzo.fillStyle = "black";
-      lienzo.fill();
-      lienzo.closePath();
-      distancias.sort(function(a, b){return 0.5 - Math.random()});
-      for (var dist in distancias) {
-        let tetha = (dist*5)*Math.PI/180;
-        let x = distancias[dist]*Math.cos(tetha)+150
-        let y  = -distancias[dist]*Math.sin(tetha) +300
-        console.log(`Distancia [${dist}]: ${distancias[dist]} - Angle: ${tetha}`);
-        console.log(`X: ${x} - Y: ${y}`);
-        dibujante(150, x , 300, y , "yellow");
-      }
-    }
-
-    function dibujante( xi, xf, yi, yf, colorLine){
-      lienzo.beginPath();
-      lienzo.strokeStyle=colorLine;
-      lienzo.moveTo(xi,yi);
-      lienzo.lineTo(xf,yf);
-      lienzo.stroke();
-      lienzo.closePath();
-    }
-  </script>
+  <!-- <script src="https://ricardoromo.co/Rbot/index.js" charset="utf-8"></script> -->
+  <script src="index.js" charset="utf-8"></script>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 </body>
 </html>

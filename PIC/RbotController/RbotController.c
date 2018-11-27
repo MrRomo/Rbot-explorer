@@ -3,6 +3,13 @@
 #define INPUT PORTD
 #define true 1
 #define false 0
+#define Forward 0x0A;
+#define Backward ~0x0A;
+#define Left 0x06;
+#define Right ~0x06;
+#define Stop 0x00;
+#define LeftQ 0x02;
+#define RightQ 0x01;
 
 void setup();
 void servo();
@@ -16,13 +23,24 @@ void main(){
   setup();
   while(1){
     servo();
-    PORTA = PORTD>>4;
+    //PORTA = PORTD>>4;
+
   }
 }
 void  motion() {
-  switch (INPUT) {
-    case ((0x00)||(0xA0)||(0x60)||(~0xA0)||(~0x60)):
-
+  switch (PORTD>>4) {
+    case ((Stop)||(Forward)||(Backward)||(Left)||(Right)):
+      PORTA = PORTD>>4;
+      break;
+    case (LeftQ)
+      PORTA = Left;
+      delay_ms(20);
+      PORTA = Stop;
+      break;
+    case (RightQ)
+      PORTA = Right;
+      delay_ms(20);
+      PORTA = Stop;
       break;
   }
 }
@@ -35,7 +53,24 @@ void setup(){
   PORTB=0x00;
   HBriged = 0x00;
 }
-
+void test() {
+    PORTA = 0x0A;
+    delay_ms(1000);
+    PORTA = 0x00;
+    delay_ms(20);
+    PORTA = ~0x0A;
+    delay_ms(1000);
+    PORTA = 0x00;
+    delay_ms(20);
+    PORTA = 0x06;
+    delay_ms(1000);
+    PORTA = 0x00;
+    delay_ms(20);
+    PORTA = ~0x06;
+    delay_ms(1000);
+    PORTA = 0x00;
+    delay_ms(20);
+}
 void servo(){
     gira(pos);
     if(CW){

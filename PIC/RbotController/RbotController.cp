@@ -17,8 +17,23 @@ void main(){
  setup();
  while(1){
  servo();
- PORTA = PORTD>>4;
 
+ PORTA = 0x0A;
+ delay_ms(1000);
+ PORTA = 0x00;
+ delay_ms(20);
+ PORTA = ~0x0A;
+ delay_ms(1000);
+ PORTA = 0x00;
+ delay_ms(20);
+ PORTA = 0x06;
+ delay_ms(1000);
+ PORTA = 0x00;
+ delay_ms(20);
+ PORTA = ~0x06;
+ delay_ms(1000);
+ PORTA = 0x00;
+ delay_ms(20);
  }
 }
 void motion() {
