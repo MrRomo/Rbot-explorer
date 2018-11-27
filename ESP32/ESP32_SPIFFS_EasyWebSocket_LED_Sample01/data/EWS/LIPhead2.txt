@@ -41,7 +41,7 @@
     function onMessage(evt){
       if( websocket.readyState == 1){
         if( websocket.bufferedAmount == 0){
-          console.log(evt)
+          //console.log(evt)
           evt.stopPropagation();
           var rev = evt.data;
           var rev_str = rev.split('|');

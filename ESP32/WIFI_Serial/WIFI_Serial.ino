@@ -39,7 +39,7 @@ byte cnt = 0;
 
 
 //variables del sensor HC-SR04
-float distancia_s = 40;
+long distancia_s = 40;
 int angle = 0;
 String measure, StateR;
 bool firstMeasure = true;
@@ -115,11 +115,11 @@ void loop() {
     }
 
 
-    distancia_s = random(60, 150);
+    distancia_s = rand()%150;
     //distancia_s = readPines()*10;
    
     measure = String(angle)+"|"+String(distancia_s);
-    //websocket_send(measure);
+    websocket_send(measure);
     check_ms = false;
 
 
