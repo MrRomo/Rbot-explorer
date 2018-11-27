@@ -1,10 +1,10 @@
 unsigned char Data;
-char receiver[4] = {22,21,17,16};
+char receiver[8] = {16,17,21,22,23,19,18,26};
 
 
 void setup() {
   // put your setup code here, to run once:
-  for (char i = 0; i < 4; i++) {
+  for (char i = 0; i < 8; i++) {
     pinMode(receiver[i],INPUT);
   }
   Serial.begin(115200);
@@ -15,7 +15,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   Data = 0;
-  for (char i = 0; i < 4; i++) {
+  for (char i = 0; i < 8; i++) {
     Serial.print(digitalRead(receiver[i]));
     Data = (Data<<1)+digitalRead(receiver[i]);
   }

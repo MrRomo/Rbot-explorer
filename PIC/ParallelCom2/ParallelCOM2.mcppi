@@ -6,7 +6,7 @@ Value=0
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=..\SerialComMikro.c
+Value=NewUnit_0.c
 [USE_EEPROM]
 Value=0
 [USE_HEAP]
@@ -16,7 +16,8 @@ Value=0
 [EEPROM_DEFINITION]
 Value=
 [FILES]
-Count=0
+Count=1
+File0=ParallelCOM2.c
 [BINARIES]
 Count=0
 [IMAGES]
@@ -24,7 +25,7 @@ Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
 Count=1
-File0=..\SerialComMikro.c
+File0=ParallelCOM2.c
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -35,7 +36,7 @@ Count=0
 Count=4
 Path0=R:\Ricardo\Programas\Educacion\Electronica\mikroC PRO for PIC\Defs\
 Path1=R:\Ricardo\Programas\Educacion\Electronica\mikroC PRO for PIC\Uses\P16\
-Path2=P:\Google\Universidad\2018_II\Microprocesamiento\Tercer Seguimiento\Rbot-explorer\PIC\ParallelCom\
+Path2=P:\Google\Universidad\2018_II\Microprocesamiento\Tercer Seguimiento\Rbot-explorer\PIC\ParallelCom2\
 Path3=P:\Google\Universidad\2018_II\Microprocesamiento\Tercer Seguimiento\Rbot-explorer\PIC\
 [HEADER_PATH]
 Count=0
