@@ -241,6 +241,7 @@ atan2
 atof
 atoi
 atol
+b
 b0
 b1
 b2
@@ -1417,6 +1418,7 @@ t6963c_writecommand
 t6963c_writedata
 tan
 tanh
+test
 time_datetoepoch
 time_epochtodate
 time_jd1970
@@ -1609,6 +1611,7 @@ vrr_bit
 vrss
 vrss_bit
 w
+watcher
 wcol
 wcol_bit
 wdtcon

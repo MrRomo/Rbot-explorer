@@ -1,22 +1,49 @@
 #line 1 "P:/Google/Universidad/2018_II/Microprocesamiento/Tercer Seguimiento/Rbot-explorer/PIC/RbotController/RbotController.c"
-
-
-
-
-
-
-void setup();
+#line 15 "P:/Google/Universidad/2018_II/Microprocesamiento/Tercer Seguimiento/Rbot-explorer/PIC/RbotController/RbotController.c"
 void servo();
+void setup();
 void motion();
-
 void gira(unsigned long grados);
 void VDelay_us(unsigned time_us);
+
 int pos=0;
+unsigned int a;
 char CW =  1 ;
 void main(){
  setup();
  while(1){
  servo();
+
+
+ }
+}
+void motion() {
+ switch (PORTD) {
+ case  0x00; :
+ PORTA = PORTD>>4;
+ break;
+ case ( 0x02; )
+ PORTA =  0x06; ;
+ delay_ms(20);
+ PORTA =  0x00; ;
+ break;
+ case ( 0x01; )
+ PORTA =  ~0x06; ;
+ delay_ms(20);
+ PORTA =  0x00; ;
+ break;
+ }
+}
+void setup(){
+ ANSEL = 0X00;
+ TRISA = 0x00;
+ TRISD = 0XFF;
+ TRISB=0x00;
+ ANSELH=0x00;
+ PORTB=0x00;
+  PORTA  = 0x00;
+ TRISB = 0X10;
+T1CON = 0x10;
 
  PORTA = 0x0A;
  delay_ms(1000);
@@ -34,25 +61,7 @@ void main(){
  delay_ms(1000);
  PORTA = 0x00;
  delay_ms(20);
- }
 }
-void motion() {
- switch ( PORTD ) {
- case ((0x00)||(0xA0)||(0x60)||(~0xA0)||(~0x60)):
-
- break;
- }
-}
-void setup(){
- ANSEL = 0X00;
- TRISA = 0x00;
- TRISD = 0XFF;
- TRISB=0x00;
- ANSELH=0x00;
- PORTB=0x00;
-  PORTA  = 0x00;
-}
-
 void servo(){
  gira(pos);
  if(CW){

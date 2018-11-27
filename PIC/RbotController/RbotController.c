@@ -11,14 +11,15 @@
 #define LeftQ 0x02;
 #define RightQ 0x01;
 
-unsigned int  a;
-void setup();
-void servo();
-void  motion();
 
+void servo();
+void setup();
+void  motion();
 void gira(unsigned long grados);
 void VDelay_us(unsigned time_us);
+
 int pos=0;
+unsigned int  a;
 char CW = true;
 void main(){
   setup();
@@ -30,7 +31,7 @@ void main(){
 }
 void  motion() {
   switch (PORTD>>4) {
-    case ((Stop)||(Forward)||(Backward)||(Left)||(Right)):
+    case ((Stop)||(Forward)||(Backward)||(Left)||(Right)) :
       PORTA = PORTD>>4;
       break;
     case (LeftQ)
@@ -49,14 +50,13 @@ void setup(){
   ANSEL = 0X00;
   TRISA = 0x00;
   TRISD = 0XFF;
-  TRISB=0x00;
+ TRISB=0x00;
   ANSELH=0x00;
   PORTB=0x00;
-  HBriged = 0x00;
+ HBriged = 0x00;
   TRISB = 0X10;
-  T1CON = 0x10;
-}
-void test() {
+T1CON = 0x10;
+
     PORTA = 0x0A;
     delay_ms(1000);
     PORTA = 0x00;
@@ -105,19 +105,4 @@ void gira(unsigned long grados){
          PORTB.F0=0;
          VDelay_us(5000);
      }
-}
-void whatcher() {
-    TMR1H = 0;                  //Sets the Initial Value of Timer
-    TMR1L = 0;                  //Sets the Initial Value of Timer
-    PORTB.F0 = 1;               //TRIGGER HIGH
-    Delay_us(10);               //10uS Delay
-    PORTB.F0 = 0;               //TRIGGER LOW
-    while(!PORTB.F4);           //Waiting for Echo
-    T1CON.F0 = 1;               //Timer Starts
-    while(PORTB.F4);            //Waiting for Echo goes LOW
-    T1CON.F0 = 0;               //Timer Stops
-    a = (TMR1L | (TMR1H<<8));   //Reads Timer Value
-    a = a/58.82;                //Converts Time to Distance
-    a = (a + 1)*2;                  //Distance Calibration
-    PORTB = a;
 }
