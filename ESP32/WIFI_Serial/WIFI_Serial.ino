@@ -1,13 +1,15 @@
 #include <WiFi.h>
 #include <WiFiMulti.h>
 #include "ESP32_SPIFFS_EasyWebSocket.h" //beta ver 1.60
+
 // Definiciones de pines usados para los motores//
-#define PIN_MOTOR_R_FWD 26
-#define PIN_MOTOR_R_BWD 18
-#define PIN_MOTOR_L_FWD 19
-#define PIN_MOTOR_L_BWD 23
 
+#define PIN_MOTOR_R_FWD 4
+#define PIN_MOTOR_R_BWD 0
+#define PIN_MOTOR_L_FWD 2
+#define PIN_MOTOR_L_BWD 32
 
+// Definiciones de pines usados para los motores//
 const char* ssid = "JR2GWIFI"; //Nombre de la rec
 const char* password = "ADBAE5FA"; //Clave de la red
 
@@ -44,7 +46,7 @@ bool firstMeasure = true;
 bool check_ms = true;
 bool switchDir = false;
 
-//*************ConfiguraciÃ³n*************************
+//*************Configuracion*************************
 void setup() {
   Serial.begin(115200);
   delay(10);
@@ -117,7 +119,7 @@ void loop() {
     //distancia_s = readPines()*10;
    
     measure = String(angle)+"|"+String(distancia_s);
-    websocket_send(measure);
+    //websocket_send(measure);
     check_ms = false;
 
 
@@ -133,8 +135,8 @@ void loop() {
           switch (ret_str[4]) {
              case 'w':
               Serial.println("Forward");
-               motion(LOW, LOW, LOW, LOW);
-               delay(20);
+              motion(LOW, LOW, LOW, LOW);
+              delay(20);
               motion(HIGH, LOW, LOW, HIGH);
               statusR = "Forward";
               break;
@@ -155,7 +157,7 @@ void loop() {
             case 'd':
               Serial.println("Left");
               motion(LOW, LOW, LOW, LOW);
-               delay(20);
+              delay(20);
               motion(LOW, HIGH, LOW, HIGH);
               statusR = "Left";
               break;
@@ -166,6 +168,8 @@ void loop() {
               break;
             case 'h':
               Serial.println("Left Quarter");
+              motion(LOW, LOW, LOW, LOW);
+              delay(20);
               motion(HIGH, LOW, HIGH, LOW);
               delay(200);
               motion(LOW, LOW, LOW, LOW);
@@ -173,6 +177,8 @@ void loop() {
               break;
             case 'k':
               Serial.println("Right Quarter");
+              motion(LOW, LOW, LOW, LOW);
+              delay(20);
               motion(LOW, HIGH, LOW, HIGH);
               delay(200);
               motion(LOW, LOW, LOW, LOW);
